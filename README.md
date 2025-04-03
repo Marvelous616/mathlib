@@ -1,4 +1,4 @@
 trynna make something
-if you know C plz
+if you know C and sumn bout graphics plz
 HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPPP
 it needs sdl2
