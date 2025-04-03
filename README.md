@@ -1,4 +1,4 @@
+# mathlib
 trynna make something
-if you know C and sumn bout graphics plz
+if you know C plz
 HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPPP
-it needs sdl2
