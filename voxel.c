@@ -1,6 +1,6 @@
 #include <math.h>
-
-typedef unsigned int rgba;
+#include <stdint.h>
+typedef uint_32 rgba;
 
 typedef enum {
 	array,
@@ -12,6 +12,14 @@ typedef struct {
 	int y;
 	int z;
 }i3vector;
+
+typedef struct {
+	rgba* space;
+	i3vector dimensions;
+	int pitch;
+	voxeltype voxel_type;
+	i3vector centre;
+}voxel;
 
 i3vector add(i3vector a , i3vector b) {
 	i3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
@@ -51,16 +59,9 @@ void sphere(int radius, voxel* drawspace, i3vector position) {
 	}
 };
 
-typedef struct {
-	rgba* space;
-	i3vector dimensions;
-	int pitch;
-	voxeltype voxel_type;
-	i3vector centre;
-}voxel;
 
 voxel* init_voxel(int x_dim, int y_dim, int z_dim) {
-	rgba* sp = (rgba*)malloc(x_dim * y_dim * z_dim * sizeof(int));
+	rgba* sp = (rgba*)malloc(x_dim * y_dim * z_dim * sizeof(rgba));
 	voxel* out = (voxel*)malloc(sizeof(voxel));
 	i3vector dim = { x_dim-1, y_dim-1, z_dim-1};
 	out->space = sp;
@@ -81,4 +82,12 @@ rgba* ptrindexVoxel(i3vector ind, voxel* drawspace) {
 	rgba* out = (rgba*)drawspace->space + (drawspace->dimensions.x * drawspace->dimensions.y * ind.z + drawspace->dimensions.x * ind.y + ind.x);
 	return out;
 }
-//make da raytracer
+//make da raymarcher
+// ZTEP UNO
+// make an orthogonal projector
+// accessing channels
+Uint
+//alpha blending alg
+rgba blend(rgba a, rgba b) {
+
+}
