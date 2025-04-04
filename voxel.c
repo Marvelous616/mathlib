@@ -58,7 +58,8 @@ typedef struct {
 voxel* init_voxel(int x_dim, int y_dim, int z_dim) {
 	voxel* out = (voxel*)malloc(sizeof(voxel));
 	out->space = (rgba*)malloc(x_dim * y_dim * z_dim);
-	 
+	out->dimensions = (i3vector){x_dim,y_dim,z_dim};
+	out->voxel_type = array;
 };
 
 //make da raymarcher
