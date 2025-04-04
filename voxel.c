@@ -1,31 +1,33 @@
 #include <math.h>
 #include <stdint.h>
 typedef uint32_t rgba;
+typedef uint8_t channel;
+
 #define RED_MASK   0xFF000000
 #define GREEN_MASK 0x00FF0000
 #define BLUE_MASK  0x0000FF00
 #define ALPHA_MASK 0x000000FF
 
-rgba getRed(rgba color) {
+channel getRed(rgba color) {
 	return (color & RED_MASK) >> 24;
 }
 
-rgba getGreen(rgba color) {
+channel getGreen(rgba color) {
 	return (color & GREEN_MASK) >> 16;
 }
 
-rgba getBlue(rgba color) {
+channel getBlue(rgba color) {
 	return (color & BLUE_MASK) >> 8;
 }
 
-rgba getAlpha(rgba color) {
+channel getAlpha(rgba color) {
 	return color & ALPHA_MASK;
 }
 
 typedef enum {
 	array,
 	linked
-}voxeltype;
+}voxeltype; 
 
 typedef struct {
 	int x;
@@ -71,7 +73,7 @@ void sphere(int radius, voxel* drawspace, i3vector position) {
 		for (int j = 0; j < drawspace->dimensions.y; j++) {
 			for (int k = 0; k < drawspace->dimensions.z; k++) {
 				i3vector I = { i,j,k };
-				if (magnitude(sub(pos, I)) <= radius) {
+				if (magnitude(sub(pos, I)) <= radius) { 
 					*ptrindexVoxel(I,drawspace) = 4294967295;
 				}
 			}
@@ -102,12 +104,19 @@ rgba* ptrindexVoxel(i3vector ind, voxel* drawspace) {
 	rgba* out = (rgba*)drawspace->space + (drawspace->dimensions.x * drawspace->dimensions.y * ind.z + drawspace->dimensions.x * ind.y + ind.x);
 	return out;
 }
-////make da raymarcher
-//// ZTEP UNO
-//// make an orthogonal projector
-//// accessing channels
-//Uint
-////alpha blending alg
-//rgba blend(rgba a, rgba b) {
-//
-//}
+//make da raymarcher
+// ZTEP UNO
+// make an orthogonal projector
+//alpha blend
+
+rgba blend(rgba a, rgba b) {//fix required
+	rgba out=0;
+	out += (rgba)getRed(a) * getAlpha(a) + getRed(b) * (1 - getAlpha(a));
+	out = out << 8;
+	out += (rgba)getGreen(a) * getAlpha(a) + getGreen(b) * (1 - getAlpha(a));
+	out = out << 8;
+	out += (rgba)getBlue(a) * getAlpha(a) + getBlue(b) * (1 - getAlpha(a));
+	out = out << 8;
+	out += (rgba)getAlpha(a) + getAlpha(b) * (1 - getAlpha(a));
+	return out;
+}
