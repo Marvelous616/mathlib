@@ -30,7 +30,6 @@ typedef struct {
 	int y;
 	int z;
 }i3vector;
-
 i3vector add(i3vector a , i3vector b) {
 	i3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
 	return out;
@@ -50,30 +49,28 @@ i3vector div(i3vector a, int b) {
 double magnitude(i3vector a) {
 	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
 }
-
-
 typedef struct {
 	float x;
 	float y;
 	float z;
 }d3vector;
-d3vector add(d3vector a, d3vector b) {
+d3vector addD(d3vector a, d3vector b) {
 	d3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
 	return out;
 };
-d3vector sub(d3vector a, d3vector b) {
+d3vector subD(d3vector a, d3vector b) {
 	d3vector out = { a.x - b.x,a.y - b.y,a.z - b.z };
 	return out;
 };
-d3vector scale(d3vector a, int b) {
+d3vector scaleD(d3vector a, int b) {
 	d3vector out = { a.x * b,a.y * b,a.z * b };
 	return out;
 };
-d3vector div(d3vector a, int b) {
+d3vector divD(d3vector a, int b) {
 	d3vector out = { a.x / b,a.y / b,a.z / b };
 	return out;
 };
-double magnitude(d3vector a) {
+double magnitudeD(d3vector a) {
 	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
