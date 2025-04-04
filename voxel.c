@@ -127,7 +127,7 @@ typedef struct {
 	i3vector position;
 	d3vector orientation;
 	int render_distance;
-	resolution render_res;
+	resolution render_res;//fov required
 	float render_step;
 }camera;
 
