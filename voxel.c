@@ -138,7 +138,7 @@ rgba blend(rgba a, rgba b) {
 	out |= ((rgba)red << 24);
 	out |= ((rgba)green << 16);
 	out |= ((rgba)blue << 8);
-	out |= ((rgba)(c_alpha * 255)); 
+	out |= ((rgba)(c_alpha * 255)); //maybe use (channel) cast first
 	return out;
 }
 //do da raymarcher
