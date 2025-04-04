@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdint.h>
-typedef uint_32 rgba;
+typedef unsigned int rgba;
 
 typedef enum {
 	array,
