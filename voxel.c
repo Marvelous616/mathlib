@@ -14,7 +14,6 @@ channel getRed(rgba color) {return (color & RED_MASK) >> 24;}
 channel getGreen(rgba color) {return (color & GREEN_MASK) >> 16;}
 channel getBlue(rgba color) {return (color & BLUE_MASK) >> 8;}
 channel getAlpha(rgba color) {return color & ALPHA_MASK;}
-
 float getAlphaNormalized(rgba color) {
 	float out = color & ALPHA_MASK;
 	out /= 255;
@@ -22,7 +21,10 @@ float getAlphaNormalized(rgba color) {
 }
 
 typedef enum { array, linked}voxeltype; 
-
+typedef struct {
+	int x;
+	int y;
+}resolution;
 typedef struct {
 	int x;
 	int y;
@@ -93,14 +95,12 @@ voxel* init_voxel(int x_dim, int y_dim, int z_dim) {
 float composite_alpha(float a, float b) {
 	return a + b*(1 - a);
 }
-
 channel composite(channel a, channel b, float alpha_a, float alpha_b, float alpha_c) {
 	float out;
 	out = (float)a * alpha_a + (float)b * alpha_b * (1 - alpha_c);
 	out /= alpha_c;
 	return (channel)out;
 }
-
 rgba blend(rgba a, rgba b) {
 	float c_alpha = composite_alpha(getAlphaNormalized(a), getAlphaNormalized(b));
 	channel red = composite(getRed(a), getRed(b), getAlphaNormalized(a), getAlphaNormalized(b), c_alpha);
@@ -115,11 +115,6 @@ rgba blend(rgba a, rgba b) {
 }
 //do da raymarcher
 typedef struct {
-	int x;
-	int y;
-}resolution;
-
-typedef struct {
 	i3vector position;
 	d3vector orientation;
 	int render_distance;
@@ -128,7 +123,6 @@ typedef struct {
 	int fov_length;
 	i3vector ray_origin;
 }camera;
-
 camera* camera_init(voxel* drawSpace) {
 	camera* out = (camera*)malloc(sizeof(camera));
 	d3vector o = { 0,0,0 };
@@ -141,12 +135,11 @@ camera* camera_init(voxel* drawSpace) {
 	i3vector ou = { 0,0,0 };
 	out->ray_origin = ou;
 }
-
-void cameraLoop(camera* cam, voxel* drawSpace) {
+void cameraMovement(camera* cam, voxel* drawSpace) {
 	//movement script
 }
-
 //raymarcher
+
 typedef struct {
 	rgba out;
 	camera* view;
