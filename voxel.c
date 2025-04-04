@@ -87,13 +87,9 @@ voxel* init_voxel(int x_dim, int y_dim, int z_dim) {
 	out->dimensions = (i3vector){x_dim,y_dim,z_dim};
 	out->voxel_type = array;
 };
-
 //make da raymarcher
 // ZTEP UNO
 // make an orthogonal projector
-//alpha blend [x]
-
-
 float composite_alpha(float a, float b) {
 	return a + b*(1 - a);
 }
