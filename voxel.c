@@ -21,7 +21,7 @@ float getAlphaNormalized(rgba color) {
 	return out;
 }
 
-typedef enum {	array,	linked }voxeltype; 
+typedef enum { array, linked}voxeltype; 
 
 typedef struct {
 	int x;
@@ -144,6 +144,10 @@ camera* camera_init(voxel* drawSpace) {
 	out->fov_length = 15;
 	i3vector ou = { 0,0,0 };
 	out->ray_origin = ou;
+}
+
+void cameraLoop(camera* cam, voxel* drawSpace) {
+	//movement script
 }
 
 //raymarcher
