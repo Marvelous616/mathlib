@@ -129,7 +129,22 @@ typedef struct {
 	int render_distance;
 	resolution render_res;//fov required
 	float render_step;
+	int fov_length;
+	i3vector ray_origin;
 }camera;
+
+camera* camera_init(voxel* drawSpace) {
+	camera* out = (camera*)malloc(sizeof(camera));
+	d3vector o = { 0,0,0 };
+	out->orientation = o;
+	out->render_distance = 20;
+	resolution re = { 512,512 };
+	out->render_res = re;
+	out->render_step = 1;
+	out->fov_length = 15;
+	i3vector ou = { 0,0,0 };
+	out->ray_origin = ou;
+}
 
 //raymarcher
 typedef struct {
