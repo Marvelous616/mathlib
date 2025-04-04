@@ -49,6 +49,32 @@ double magnitude(i3vector a) {
 	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
+
+typedef struct {
+	float x;
+	float y;
+	float z;
+}d3vector;
+d3vector add(d3vector a, d3vector b) {
+	d3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
+	return out;
+};
+d3vector sub(d3vector a, d3vector b) {
+	d3vector out = { a.x - b.x,a.y - b.y,a.z - b.z };
+	return out;
+};
+d3vector scale(d3vector a, int b) {
+	d3vector out = { a.x * b,a.y * b,a.z * b };
+	return out;
+};
+d3vector div(d3vector a, int b) {
+	d3vector out = { a.x / b,a.y / b,a.z / b };
+	return out;
+};
+double magnitude(d3vector a) {
+	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
+}
+
 typedef struct {
 	rgba* space;
 	i3vector dimensions;
@@ -92,3 +118,20 @@ rgba blend(rgba a, rgba b) {
 	return out;
 }
 //do da raymarcher
+typedef struct {
+	int x;
+	int y;
+}resolution;
+
+typedef struct {
+	i3vector position;
+	d3vector orientation;
+	int render_distance;
+	resolution render_res;
+	float render_step;
+}camera;
+
+//raymarcher
+typedef struct {
+
+}ray;
