@@ -154,5 +154,4 @@ void cameraLoop(camera* cam, voxel* drawSpace) {
 typedef struct {
 	rgba out;
 	camera* view;
-
 }ray;
