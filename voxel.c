@@ -1,5 +1,7 @@
 #include <math.h>
 #include <stdint.h>
+#include <stdlib.h>
+
 typedef uint32_t rgba;
 typedef uint8_t channel;
 
@@ -22,6 +24,12 @@ channel getBlue(rgba color) {
 
 channel getAlpha(rgba color) {
 	return color & ALPHA_MASK;
+}
+
+float getAlphaNormalized(rgba color) {
+	float out = color & ALPHA_MASK;
+	out /= 255;
+	return out;
 }
 
 typedef enum {
@@ -107,16 +115,29 @@ rgba* ptrindexVoxel(i3vector ind, voxel* drawspace) {
 //make da raymarcher
 // ZTEP UNO
 // make an orthogonal projector
-//alpha blend
+//alpha blend [x]
 
-rgba blend(rgba a, rgba b) {//fix required
-	rgba out=0;
-	out += (rgba)getRed(a) * getAlpha(a) + getRed(b) * (1 - getAlpha(a));
-	out = out << 8;
-	out += (rgba)getGreen(a) * getAlpha(a) + getGreen(b) * (1 - getAlpha(a));
-	out = out << 8;
-	out += (rgba)getBlue(a) * getAlpha(a) + getBlue(b) * (1 - getAlpha(a));
-	out = out << 8;
-	out += (rgba)getAlpha(a) + getAlpha(b) * (1 - getAlpha(a));
+
+float composite_alpha(float a, float b) {
+	return a + b*(1 - a);
+}
+
+channel composite(channel a, channel b, float alpha_a, float alpha_b, float alpha_c) {
+	float out;
+	out = (float)a * alpha_a + (float)b * alpha_b * (1 - alpha_c);
+	out /= alpha_c;
+	return (channel)out;
+}
+
+rgba blend(rgba a, rgba b) {
+	float c_alpha = composite_alpha(getAlphaNormalized(a), getAlphaNormalized(b));
+	channel red = composite(getRed(a), getRed(b), getAlphaNormalized(a), getAlphaNormalized(b), c_alpha);
+	channel green = composite(getGreen(a), getGreen(b), getAlphaNormalized(a), getAlphaNormalized(b), c_alpha);
+	channel blue = composite(getBlue(a), getBlue(b), getAlphaNormalized(a), getAlphaNormalized(b), c_alpha);
+	rgba out = 0x00000000;
+	out |= ((rgba)red << 24);
+	out |= ((rgba)green << 16);
+	out |= ((rgba)blue << 8);
+	out |= ((rgba)(c_alpha * 255)); 
 	return out;
 }
