@@ -10,21 +10,10 @@ typedef uint8_t channel;
 #define BLUE_MASK  0x0000FF00
 #define ALPHA_MASK 0x000000FF
 
-channel getRed(rgba color) {
-	return (color & RED_MASK) >> 24;
-}
-
-channel getGreen(rgba color) {
-	return (color & GREEN_MASK) >> 16;
-}
-
-channel getBlue(rgba color) {
-	return (color & BLUE_MASK) >> 8;
-}
-
-channel getAlpha(rgba color) {
-	return color & ALPHA_MASK;
-}
+channel getRed(rgba color) {return (color & RED_MASK) >> 24;}
+channel getGreen(rgba color) {return (color & GREEN_MASK) >> 16;}
+channel getBlue(rgba color) {return (color & BLUE_MASK) >> 8;}
+channel getAlpha(rgba color) {return color & ALPHA_MASK;}
 
 float getAlphaNormalized(rgba color) {
 	float out = color & ALPHA_MASK;
