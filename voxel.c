@@ -133,5 +133,7 @@ typedef struct {
 
 //raymarcher
 typedef struct {
+	rgba out;
+	camera* view;
 
 }ray;
