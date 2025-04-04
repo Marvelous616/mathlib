@@ -1,6 +1,26 @@
 #include <math.h>
 #include <stdint.h>
-typedef uint_32 rgba;
+typedef uint32_t rgba;
+#define RED_MASK   0xFF000000
+#define GREEN_MASK 0x00FF0000
+#define BLUE_MASK  0x0000FF00
+#define ALPHA_MASK 0x000000FF
+
+rgba getRed(rgba color) {
+	return (color & RED_MASK) >> 24;
+}
+
+rgba getGreen(rgba color) {
+	return (color & GREEN_MASK) >> 16;
+}
+
+rgba getBlue(rgba color) {
+	return (color & BLUE_MASK) >> 8;
+}
+
+rgba getAlpha(rgba color) {
+	return color & ALPHA_MASK;
+}
 
 typedef enum {
 	array,
@@ -82,12 +102,12 @@ rgba* ptrindexVoxel(i3vector ind, voxel* drawspace) {
 	rgba* out = (rgba*)drawspace->space + (drawspace->dimensions.x * drawspace->dimensions.y * ind.z + drawspace->dimensions.x * ind.y + ind.x);
 	return out;
 }
-//make da raymarcher
-// ZTEP UNO
-// make an orthogonal projector
-// accessing channels
-Uint
-//alpha blending alg
-rgba blend(rgba a, rgba b) {
-
-}
+////make da raymarcher
+//// ZTEP UNO
+//// make an orthogonal projector
+//// accessing channels
+//Uint
+////alpha blending alg
+//rgba blend(rgba a, rgba b) {
+//
+//}
