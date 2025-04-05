@@ -118,7 +118,8 @@ typedef struct {
 	resolution render_res;//fov required
 	float render_step;
 	int fov_length;
-	i3vector ray_origin;
+	d3vector ray_origin;
+	int max_bounces;
 }camera;
 camera* camera_init(voxel* drawSpace) {
 	camera* out = (camera*)malloc(sizeof(camera));
@@ -129,8 +130,9 @@ camera* camera_init(voxel* drawSpace) {
 	out->render_res = re;
 	out->render_step = 1;
 	out->fov_length = 15;
-	i3vector ou = { 0,0,0 };
-	out->ray_origin = ou;
+	d3vector ou = { 0,0,0 };
+	out->ray_origin = ou;//needs condition
+	out->max_bounces=100;
 }
 void cameraMovement(camera* cam, voxel* drawSpace) {
 	//movement script
@@ -138,6 +140,17 @@ void cameraMovement(camera* cam, voxel* drawSpace) {
 //raymarcher
 
 typedef struct {
-	rgba out;
-	camera* view;
+	rgba acc;
+	d3vector pos;
+	camera* camera;
+	int max_bounces;
 }ray;
+
+ray* drawRay(camera* cam, resolution px) {
+	ray* out = (ray*)malloc(sizeof(ray));
+	out->acc = 0;
+	out->pos = cam->ray_origin;
+	out->camera = cam;
+	out->max_bounces = cam->max_bounces;
+}
+//marching loop
