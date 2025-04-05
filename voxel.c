@@ -121,6 +121,7 @@ typedef struct {
 	d3vector ray_origin;
 	int max_bounces;
 }camera;
+
 camera* camera_init(voxel* drawSpace) {
 	camera* out = (camera*)malloc(sizeof(camera));
 	d3vector o = { 0,0,0 };
