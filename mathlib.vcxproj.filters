@@ -44,5 +44,8 @@
     <ClInclude Include="1_bit_renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="voxel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

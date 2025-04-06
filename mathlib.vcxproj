@@ -138,6 +138,7 @@
     <ClInclude Include="1_bit_renderer.h" />
     <ClInclude Include="matrices.h" />
     <ClInclude Include="ppm_writer.h" />
+    <ClInclude Include="voxel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

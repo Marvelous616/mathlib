@@ -1,14 +1,7 @@
+#include "voxel.h"
 #include <math.h>
 #include <stdint.h>
 #include <stdlib.h>
-
-typedef uint32_t rgba;
-typedef uint8_t channel;
-
-#define RED_MASK   0xFF000000
-#define GREEN_MASK 0x00FF0000
-#define BLUE_MASK  0x0000FF00
-#define ALPHA_MASK 0x000000FF
 
 channel getRed(rgba color) {return (color & RED_MASK) >> 24;}
 channel getGreen(rgba color) {return (color & GREEN_MASK) >> 16;}
@@ -20,16 +13,6 @@ float getAlphaNormalized(rgba color) {
 	return out;
 }
 
-typedef enum { array, linked}voxeltype; 
-typedef struct {
-	int x;
-	int y;
-}resolution;
-typedef struct {
-	int x;
-	int y;
-	int z;
-}i3vector;
 i3vector add(i3vector a , i3vector b) {
 	i3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
 	return out;
@@ -42,18 +25,13 @@ i3vector scale(i3vector a, int b) {
 	i3vector out = { a.x * b,a.y * b,a.z * b };
 	return out;
 };
-i3vector div(i3vector a, int b) {
+i3vector divide(i3vector a, int b) {
 	i3vector out = { a.x / b,a.y / b,a.z / b };
 	return out;
 };
 double magnitude(i3vector a) {
 	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
 }
-typedef struct {
-	float x;
-	float y;
-	float z;
-}d3vector;
 d3vector addD(d3vector a, d3vector b) {
 	d3vector out = { a.x + b.x,a.y + b.y,a.z + b.z };
 	return out;
@@ -73,12 +51,6 @@ d3vector divD(d3vector a, int b) {
 double magnitudeD(d3vector a) {
 	return (double)sqrt((a.x * a.x + a.y * a.y + a.z * a.z));
 }
-
-typedef struct {
-	rgba* space;
-	i3vector dimensions;
-	voxeltype voxel_type;
-}voxel;
 
 voxel* init_voxel(int x_dim, int y_dim, int z_dim) {
 	voxel* out = (voxel*)malloc(sizeof(voxel));
@@ -111,17 +83,6 @@ rgba blend(rgba a, rgba b) {
 	return out;
 }
 //do da raymarcher
-typedef struct {
-	i3vector position;
-	d3vector orientation;
-	int render_distance;
-	resolution render_res;//fov required
-	float render_step;
-	int fov_length;
-	d3vector ray_origin;
-	int max_bounces;
-}camera;
-
 camera* camera_init(voxel* drawSpace) {
 	camera* out = (camera*)malloc(sizeof(camera));
 	d3vector o = { 0,0,0 };
@@ -139,14 +100,6 @@ void cameraMovement(camera* cam, voxel* drawSpace) {
 	//movement script
 }
 //raymarcher
-
-typedef struct {
-	rgba acc;
-	d3vector pos;
-	camera* camera;
-	int max_bounces;
-}ray;
-
 ray* drawRay(camera* cam, resolution px) {
 	ray* out = (ray*)malloc(sizeof(ray));
 	out->acc = 0;
