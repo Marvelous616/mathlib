@@ -30,6 +30,7 @@ typedef struct i3vector{
 	int y;
 	int z;
 }i3vector;
+
 i3vector add(i3vector a, i3vector b);
 i3vector sub(i3vector a, i3vector b);
 i3vector scale(i3vector a, int b);
@@ -40,7 +41,9 @@ typedef struct d3vector{
 	float y;
 	float z;
 }d3vector;
+
 double magnitude(i3vector a);
+
 d3vector addD(d3vector a, d3vector b);
 d3vector subD(d3vector a, d3vector b);
 d3vector scaleD(d3vector a, int b);
@@ -57,6 +60,7 @@ voxel* init_voxel(int x_dim, int y_dim, int z_dim);
 float composite_alpha(float a, float b);
 channel composite(channel a, channel b, float alpha_a, float alpha_b, float alpha_c);
 rgba blend(rgba a, rgba b);
+
 typedef struct camera {
 	i3vector position;
 	d3vector orientation;
@@ -67,6 +71,7 @@ typedef struct camera {
 	d3vector ray_origin;
 	int max_bounces;
 }camera;
+
 camera* camera_init(voxel* drawSpace);
 void cameraMovement(camera* cam, voxel* drawSpace);
 
@@ -76,5 +81,6 @@ typedef struct ray {
 	camera* camera;
 	int max_bounces;
 }ray;
+
 ray* drawRay(camera* cam, resolution px);
 #endif 
