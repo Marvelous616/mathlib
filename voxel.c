@@ -107,4 +107,7 @@ ray* drawRay(camera* cam, resolution px) {
 	out->camera = cam;
 	out->max_bounces = cam->max_bounces;
 }
+void rayloop(ray* ray){
+    add(ray->pos
+}
 //marching loop
